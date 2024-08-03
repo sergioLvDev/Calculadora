@@ -6,32 +6,30 @@ botones.forEach((boton) => {
     console.log(boton.textContent);
     const botonApretado = boton.textContent;
 
-    if (boton.id === "borrar") {
-      if (pantalla.value.length === 1 || pantalla.value === "Error!") {
+    switch (boton.id) {
+      case "borrar":
+        if (pantalla.value.length === 1 || pantalla.value === "Error!") {
+          pantalla.value = "0";
+        } else {
+          pantalla.value = pantalla.value.slice(0, -1);
+        }
+        return;
+      case "igual":
+        try {
+          pantalla.value = eval(pantalla.value);
+        } catch (error) {
+          pantalla.value = "Error!";
+        }
+        return;
+      case "c":
         pantalla.value = "0";
-      } else {
-        pantalla.value = pantalla.value.slice(0, -1);
-      }
-      return;
-    }
-
-    if (boton.id === "igual") {
-      try {
-        pantalla.value = eval(pantalla.value);
-      } catch (error) {
-        pantalla.value = "Error!";
-      }
-      return;
-    }
-
-    if (boton.id === "c") {
-      pantalla.value = "0";
-      return;
-    }
-    if (pantalla.value === "0" || pantalla.value === "Error!") {
-      pantalla.value = botonApretado;
-    } else {
-      pantalla.value += botonApretado;
+        return;
+      default:
+        if (pantalla.value === "0" || pantalla.value === "Error!") {
+          pantalla.value = botonApretado;
+        } else {
+          pantalla.value += botonApretado;
+        }
     }
   });
 });
